@@ -1,0 +1,38 @@
+*{
+    border: 1px solid red;
+    margin:0px;
+    padding:0px;
+}
+
+#mainScreen{
+    height: 600px;
+    width: 600px;
+}
+
+.flexColumn {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.mainMenu {
+    background-color: lightblue;
+    text-align: center;
+}
+
+.accountButton{
+    height: 40px;
+    width: 200px;
+    border: 3px solid gray;
+    border-radius: 10px;
+    background-color:silver;
+}
+
+.accountButton:hover{
+    background: 
+        linear-gradient(silver 0 0) padding-box,
+        linear-gradient(to right, #ff0000, #3835fb) border-box;
+    border: 3px solid transparent;
+    border-radius: 10px;
+}
