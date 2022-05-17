@@ -21,7 +21,7 @@
     text-align: center;
 }
 
-.accountButton{
+button{
     height: 40px;
     width: 200px;
     border: 3px solid gray;
@@ -29,7 +29,7 @@
     background-color:silver;
 }
 
-.accountButton:hover{
+button:hover{
     background: 
         linear-gradient(silver 0 0) padding-box,
         linear-gradient(to right, #ff0000, #3835fb) border-box;

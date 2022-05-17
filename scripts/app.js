@@ -13,31 +13,10 @@ function cleanScreen(){
 }
 
 function mainMenu(){
+    cleanScreen(); 
     let mainScreenSection = document.getElementById("mainScreen");
     mainScreenSection.classList.add("class","mainMenu");
     mainScreenSection.classList.add("flexColumn");
-    let account1 = document.createElement("button");
-    let account2 = document.createElement("button");
-    let account3 = document.createElement("button");
-    account1.setAttribute("class","accountButton");
-    account2.setAttribute("class","accountButton");
-    account3.setAttribute("class","accountButton");
-    account1.innerText="Cuenta 1";
-    account2.innerText="Cuenta 2";
-    account3.innerText="Cuenta 3";
-    account1.addEventListener("click", ()=>accountScreen(1));
-    account2.addEventListener("click", ()=>accountScreen(2));
-    account3.addEventListener("click", ()=>accountScreen(3));
-    mainScreenSection.appendChild(account1);
-    mainScreenSection.appendChild(account2);
-    mainScreenSection.appendChild(account3);
-}
-
-function accountScreen(selectedAccount){
-    cleanScreen(); 
-    let mainScreenSection = document.getElementById("mainScreen");
-    let title = document.createElement("h1");
-    title.innerText="Usted a seleccionado la cuenta #"+selectedAccount.toString();
     let subtitle = document.createElement("h2");
     subtitle.innerText="Ingrese los datos de ingreso de la cuenta:";
     //Each section
@@ -59,15 +38,16 @@ function accountScreen(selectedAccount){
     info.appendChild(inputUser);
     info.appendChild(message2);
     info.appendChild(inputPassword);
-    mainScreenSection.appendChild(title);
     mainScreenSection.appendChild(subtitle);
     mainScreenSection.appendChild(info);
     mainScreenSection.appendChild(submitInfo);
 }
 
 function checkLogIn(){
+    //Inputs
     let user = document.getElementById("inputUser").value.toString();
     let password = document.getElementById("inputPassword").value.toString();
+    //Check all elements in the array
     for (let i = 0; i < accounts.length; i++) {
         if(accounts[i].name==user && accounts[i].password==password){
             actualUser=i;
@@ -75,6 +55,7 @@ function checkLogIn(){
             break; 
         }
     }
+    //If credentials are correct
     if(actualUser!==-1 && actualUserName !== ""){
         bankOperations();
     }else{
@@ -83,17 +64,54 @@ function checkLogIn(){
 }
 
 function bankOperations(){
+    //Basic operations
     cleanScreen(); 
     let mainScreenSection = document.getElementById("mainScreen");
-    let operationTitle = document.createElement("h1");
-    operationTitle.innerText="Bienvenido/a "+actualUserName+" ¿Qué operación desea realizar?";
-    
+    //Basic elements
+    let operationGreetings = document.createElement("h1");
+    let operationTitle = document.createElement("h2");
+    operationGreetings.innerText="Bienvenido/a "+actualUserName;
+    operationTitle.innerText="¿Qué operación desea realizar?";
+    let buttonSection = document.createElement("div");
+    buttonSection.classList.add("buttonSection");
+    buttonSection.classList.add("flexColumn");
+    //Button section
+    let buttonCheck = document.createElement("button");
+    let buttonDeposit = document.createElement("button");
+    let buttonRest = document.createElement("button");
+    buttonCheck.innerText="Verificar saldo";
+    buttonDeposit.innerText="Hacer deposito a cuenta";
+    buttonRest.innerText="Realizar un retiro";
+    buttonCheck.addEventListener("click", ()=>checkBalance());
+    //Append section
+    buttonSection.appendChild(buttonCheck);
+    buttonSection.appendChild(buttonDeposit);
+    buttonSection.appendChild(buttonRest);
+    mainScreenSection.appendChild(operationGreetings);
     mainScreenSection.appendChild(operationTitle);
+    mainScreenSection.appendChild(buttonSection);
 }
 
-function checkBalance(){
+function checkBalance(e){
+    //
     cleanScreen(); 
     let mainScreenSection = document.getElementById("mainScreen");
+    let balanceTitle = document.createElement("h1");
+    //
+    balanceTitle.innerText="Saldo disponible";
+    let balanceSentence = document.createElement("h2");
+    balanceSentence.innerText="Su saldo disponible es de: "
+    let money = document.createElement("p");
+    money.innerText="$"+accounts[actualUser].balance;
+    //
+    let exitButton = document.createElement("button");
+    exitButton.innerText = "Regresar al menu";
+    exitButton.addEventListener("click", ()=>bankOperations());
+    //
+    mainScreenSection.appendChild(balanceTitle);
+    mainScreenSection.appendChild(balanceSentence);
+    mainScreenSection.appendChild(money);
+    mainScreenSection.appendChild(exitButton);
 }
 function backDeposit(){
     cleanScreen(); 
