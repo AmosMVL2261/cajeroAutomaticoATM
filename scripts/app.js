@@ -175,11 +175,57 @@ function bankDeposit(){
     mainScreenSection.appendChild(exitButton);
 }
 
-//
+//Deposit to the same account
 function sameAccountDeposit(){
+    //Basic operations
+    cleanScreen(); 
+    let mainScreenSection = document.getElementById("mainScreen");
+    //Titles
+    let depositTitle = document.createElement("h1");
+    depositTitle.innerText="Deposito a esta cuenta";
+    //Money for the operation
+    let depositMoneySentence = document.createElement("h2");
+    depositMoneySentence.innerText="Cantidad que desea depositar: "
 
+    let depositMoney = document.createElement("input");
+    depositMoney.setAttribute("id","inputMoneySame");
+    //Button
+    let doDeposit = document.createElement("button");
+
+    doDeposit.innerText = "Realizar deposito";
+    doDeposit.addEventListener("click", ()=>checkAddSame());
+    //Return section
+    let exitButton = document.createElement("button");
+    exitButton.innerText = "Regresar al menu";
+    exitButton.addEventListener("click", ()=>bankOperations());
+    //Append elements
+    mainScreenSection.appendChild(depositTitle);
+    mainScreenSection.appendChild(depositMoneySentence);
+    mainScreenSection.appendChild(depositMoney);
+    mainScreenSection.appendChild(doDeposit);
+    mainScreenSection.appendChild(exitButton);
 }
 
+
+function checkAddSame(){
+    //Inputs
+    let importSize = document.getElementById("inputMoneySame").value;
+    //Check if the input is valid or is void
+    if(isNaN(importSize) || importSize === ""){
+        window.alert("La cantidad ingresada no es un numero");
+    }else{
+        //Check if the operation is valid
+        //The account can save max $990
+        let localOperation = accounts[actualUser].balance + Number(importSize);
+        if(localOperation<=990){
+            accounts[actualUser].balance = Number(localOperation);
+            window.alert("Operación realizada con exito");
+            bankOperations();
+        }else{
+            window.alert("La cantidad ingresada no es valida");
+        }
+    }
+}
 
 
 //Deposit to another account
