@@ -133,6 +133,7 @@ function checkBalance(e){
     let balanceSentence = document.createElement("h2");
     balanceSentence.innerText="Su saldo disponible es de: "
     let money = document.createElement("p");
+    money.setAttribute("id","actualMoney");
     money.innerText="$"+accounts[actualUser].balance;
     //Return Button
     let exitButton = document.createElement("button");
@@ -183,6 +184,12 @@ function sameAccountDeposit(){
     //Titles
     let depositTitle = document.createElement("h1");
     depositTitle.innerText="Deposito a esta cuenta";
+    //Actual balance
+    let actualMoneySentence = document.createElement("h2");
+    actualMoneySentence.innerText="Su saldo disponible es de: "
+    let money = document.createElement("p");
+    money.setAttribute("id","actualMoney");
+    money.innerText="$"+accounts[actualUser].balance;
     //Money for the operation
     let depositMoneySentence = document.createElement("h2");
     depositMoneySentence.innerText="Cantidad que desea depositar: "
@@ -200,6 +207,8 @@ function sameAccountDeposit(){
     exitButton.addEventListener("click", ()=>bankOperations());
     //Append elements
     mainScreenSection.appendChild(depositTitle);
+    mainScreenSection.appendChild(actualMoneySentence);
+    mainScreenSection.appendChild(money);
     mainScreenSection.appendChild(depositMoneySentence);
     mainScreenSection.appendChild(depositMoney);
     mainScreenSection.appendChild(doDeposit);
@@ -219,8 +228,10 @@ function checkAddSame(){
         let localOperation = accounts[actualUser].balance + Number(importSize);
         if(localOperation<=990){
             accounts[actualUser].balance = Number(localOperation);
+            let money = document.getElementById("actualMoney");
+            money.innerText="$"+accounts[actualUser].balance;
             window.alert("Operación realizada con exito");
-            bankOperations();
+            //bankOperations();
         }else{
             window.alert("La cantidad ingresada no es valida");
         }
@@ -236,6 +247,12 @@ function differentAccountDeposit(){
     //Titles
     let depositTitle = document.createElement("h1");
     depositTitle.innerText="Deposito a diferente cuenta";
+    //Actual balance
+    let actualMoneySentence = document.createElement("h2");
+    actualMoneySentence.innerText="Su saldo disponible es de: "
+    let money = document.createElement("p");
+    money.setAttribute("id","actualMoney");
+    money.innerText="$"+accounts[actualUser].balance;
     //Another account info
     let anotherAccountTitle = document.createElement("h2");
     anotherAccountTitle.innerText="¿A quién le deseas depositar?:"
@@ -259,6 +276,8 @@ function differentAccountDeposit(){
     exitButton.addEventListener("click", ()=>bankOperations());
     //Append elements
     mainScreenSection.appendChild(depositTitle);
+    mainScreenSection.appendChild(actualMoneySentence);
+    mainScreenSection.appendChild(money);
     mainScreenSection.appendChild(anotherAccountTitle);
     mainScreenSection.appendChild(anotherAccountName);
     mainScreenSection.appendChild(depositMoneySentence);
@@ -273,23 +292,38 @@ function checkAddAnother(){
     let importName = document.getElementById("inputNameAnother").value;
     let importSize = document.getElementById("inputMoneyAnother").value;
     let localOperation;
+    let localBalance;
+    let userExist = false;
+    //Check if it is the same account
+    if(importName===actualUserName){
+        window.alert("La cuenta ingresada es esta misma cuenta");
+        return;
+    }
     //Check if the input is valid or is void
     if(isNaN(importSize) || importSize === ""){
         window.alert("La cantidad ingresada no es un numero");
     }else if(importSize !== ""){
         for (let i = 0; i < accounts.length; i++) {
             if(importName===accounts[i].name){
+                userExist=true;
                 //Check if the operation is valid
                 //The account can save max $990
                 localOperation = accounts[i].balance + Number(importSize);
-                if(localOperation<=990){
+                localBalance = accounts[actualUser].balance - Number(importSize);
+                if(localOperation<=990 && localBalance>=10){
                     accounts[i].balance = Number(localOperation);
+                    accounts[actualUser].balance = Number(localBalance);
+                    let money = document.getElementById("actualMoney");
+                    money.innerText="$"+accounts[actualUser].balance;
                     window.alert("Operación realizada con exito");
-                    bankOperations();
+                    //bankOperations();
                 }else{
                     window.alert("La cantidad ingresada no permite una operación valida");
                 }
             }
+        }
+        if(userExist===false){
+            window.alert("El usuario ingresado no es valido");    
         }
     }else{
         window.alert("El usuario ingresado no es valido");
@@ -308,6 +342,7 @@ function bankWithdrawal(){
     let actualMoneySentence = document.createElement("h2");
     actualMoneySentence.innerText="Su saldo disponible es de: "
     let money = document.createElement("p");
+    money.setAttribute("id","actualMoney");
     money.innerText="$"+accounts[actualUser].balance;
     //Withdrawal section
     let minusMoneySentence = document.createElement("h2");
@@ -348,8 +383,10 @@ function checkMinus(e){
         let localOperation = accounts[actualUser].balance - Number(importSize);
         if(localOperation>=10){
             accounts[actualUser].balance = Number(localOperation);
+            let money = document.getElementById("actualMoney");
+            money.innerText="$"+accounts[actualUser].balance;
             window.alert("Operación realizada con exito");
-            bankOperations();
+            //bankOperations();
         }else{
             window.alert("La cantidad ingresada no es valida");
         }
