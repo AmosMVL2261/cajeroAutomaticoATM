@@ -7,6 +7,20 @@ let accounts = [
 let actualUser = -1;
 let actualUserName = "";
 
+
+let span = document.getElementById('clock');
+
+function time() {
+  let d = new Date();
+  let s = d.getSeconds();
+  let m = d.getMinutes();
+  let h = d.getHours();
+  span.innerText = (h)+":"+(m)+":"+(s);
+}
+
+setInterval(time, 1000);
+
+
 //Clean only the check Screen
 function cleanScreen(){
     document.getElementById("mainScreen").innerHTML = '';
@@ -21,10 +35,12 @@ function mainMenu(){
     mainScreenSection.classList.add("class","mainMenu");
     mainScreenSection.classList.add("flexColumn");
     //Titles
-    let subtitle = document.createElement("h2");
-    subtitle.innerText="Ingrese los datos de ingreso de la cuenta:";
+    let subtitle = document.createElement("h1");
+    subtitle.innerText="Ingrese los datos de su cuenta";
     //Each section
     let info = document.createElement("div");
+    info.classList.add("logIn");
+    info.classList.add("flexColumn");
     //Inputs
     let message1 = document.createElement("h3");
     message1.innerText="Ingrese usuario:"
@@ -83,11 +99,14 @@ function bankOperations(){
 
     let buttonSection = document.createElement("div");
     buttonSection.classList.add("buttonSection");
-    buttonSection.classList.add("flexColumn");
+    buttonSection.classList.add("flexRow");
     //Button section
     let buttonCheck = document.createElement("button");
     let buttonDeposit = document.createElement("button");
     let buttonRest = document.createElement("button");
+    buttonCheck.classList.add("niceButton");
+    buttonDeposit.classList.add("niceButton");
+    buttonRest.classList.add("niceButton");
 
     buttonCheck.innerText="Verificar saldo";
     buttonDeposit.innerText="Hacer deposito a cuenta";
@@ -157,11 +176,13 @@ function bankDeposit(){
 
     //This account option
     let ownDeposit = document.createElement("button");
+    ownDeposit.classList.add("niceButton");
     ownDeposit.innerText = "Esta cuenta";
     ownDeposit.addEventListener("click", ()=>sameAccountDeposit());
 
     //Another account option
     let anotherDeposit = document.createElement("button");
+    anotherDeposit.classList.add("niceButton");
     anotherDeposit.innerText = "Otra cuenta";
     anotherDeposit.addEventListener("click", ()=>differentAccountDeposit());
 
@@ -198,7 +219,7 @@ function sameAccountDeposit(){
     depositMoney.setAttribute("id","inputMoneySame");
     //Button
     let doDeposit = document.createElement("button");
-
+    doDeposit.classList.add("niceButton");
     doDeposit.innerText = "Realizar deposito";
     doDeposit.addEventListener("click", ()=>checkAddSame());
     //Return section
@@ -267,7 +288,7 @@ function differentAccountDeposit(){
     depositMoney.setAttribute("id","inputMoneyAnother");
     //Button
     let doDeposit = document.createElement("button");
-
+    doDeposit.classList.add("niceButton");
     doDeposit.innerText = "Realizar deposito";
     doDeposit.addEventListener("click", ()=>checkAddAnother());
     //Return section
@@ -352,7 +373,7 @@ function bankWithdrawal(){
     minusMoney.setAttribute("id","inputMinus");
     //withdrawal button
     let doMinus = document.createElement("button");
-
+    doMinus.classList.add("niceButton");
     doMinus.innerText = "Realizar retiro";
     doMinus.addEventListener("click", ()=>checkMinus());
     //Return section

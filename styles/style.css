@@ -1,12 +1,52 @@
 *{
-    border: 1px solid red;
     margin:0px;
     padding:0px;
 }
 
-#mainScreen{
-    height: 700px;
-    width: 700px;
+/*Normal selectors*/
+body{
+    background-image: url("../images/ocean.jpg");
+    background-color: #3584fb;
+}
+
+p,h1,h2,h3{
+    color: aliceblue;
+}
+
+p{
+    font-size: 1.5em;
+}
+
+header{
+    background: #2f70d1;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+
+footer{
+    background: #2f70d1;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+input{
+    text-align: center;
+    height: 20px;
+}
+
+/*Flex classes*/
+.flexRow {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flexRowCenter {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .flexColumn {
@@ -16,17 +56,47 @@
     justify-content: space-evenly;
 }
 
+/*Normal styles for divs*/
+.smallPadding {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.smallHeight{
+    min-height: 20px;
+    height: 5vh;
+}
+
 .mainMenu {
-    background-color: lightblue;
     text-align: center;
 }
 
+.logIn{
+    height: 300px;
+    width: 500px;
+    font-size: 1.3em;
+}
+
+#clock{
+    text-align: center;
+    width: 140px
+}
+
+#mainScreen{
+    height: 90vh;
+    min-height: 625px;
+    min-width: 500;
+}
+
+
+/*Button Style*/
 button{
     height: 40px;
     width: 200px;
     border: 3px solid gray;
     border-radius: 10px;
     background-color:silver;
+    font-size: large;
 }
 
 button:hover{
@@ -35,4 +105,29 @@ button:hover{
         linear-gradient(to right, #ff0000, #3835fb) border-box;
     border: 3px solid transparent;
     border-radius: 10px;
+}
+
+.buttonSection{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 1000px;
+}
+
+.niceButton{
+    height: 50px;
+    width: 250px;
+    order: 5px solid transparent;
+}
+
+/*Media Query*/
+@media (max-width: 900px) { 
+    .buttonSection{
+        height: 50vh;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 }
